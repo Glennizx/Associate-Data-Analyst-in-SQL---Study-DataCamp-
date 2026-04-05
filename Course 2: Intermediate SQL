@@ -18,6 +18,8 @@ SELECT COUNT(trip_id) AS number_of_trips,
        SUM(fare) AS total_fare,
        AVG(fare) AS average_fare
 
+<img width="1104" height="380" alt="Image" src="https://github.com/user-attachments/assets/cb7b0bad-2457-4d1d-bf75-5731e8b98af1" />
+
 FROM trips;
 
 --------------------------------------------------------------------
