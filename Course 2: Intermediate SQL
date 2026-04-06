@@ -253,8 +253,24 @@ SELECT SUM(gross) AS total_gross
 FROM films
 WHERE release_year >= 2000;
 
+-------------------------------------------------------
+#34.Calculate the average amount grossed by all films whose titles start with the letter 'A' and alias with avg_gross_A.
+-------------------------------------------------------
+SELECT AVG(gross) AS avg_gross_A
+FROM films
+WHERE titl LIKE 'A%';
 
+-------------------------------------------------------
+#35.Calculate the average facebook_likes to one decimal place and assign to the alias, avg_facebook_likes.
+-------------------------------------------------------
+SELECT ROUND(AVG(facebook_likes), 1) AS avg_facebook_likes
+FROM reviews;
 
+-------------------------------------------------------
+#36.Calculate the average budget from the films table, aliased as avg_budget_thousands, and round to the nearest thousand.
+-------------------------------------------------------
+SELECT ROUND(AVG(budget), -3) AS avg_budget_thousands
+FROM films;
 
 
 
