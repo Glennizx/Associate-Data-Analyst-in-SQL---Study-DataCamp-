@@ -1,3 +1,16 @@
+SQL skills learned by doing the tasks below:
+1. Error Handling
+2. Debugging
+3. Writing readable code
+4. Selecting data
+5. Querying data
+6.Filtering and summarizing data
+7. Sorting and grouping data
+
+
+
+
+
 #1. Calculate the smallest order amount from a table named "orders"
 ------------------------------------------------------------------
 SELECT MIN(amount) AS Minimum_order_amount
