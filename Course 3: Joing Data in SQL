@@ -60,27 +60,106 @@ WHERE l.name  = 'Bhojpuri';
 #7. Do an inner join of countries AS c (left) with populations AS p (right), on code.
 Select name and fertility_rate.
 -------------------------------------------------------------------
+SELECT name, fertility_rate
+FROM countries AS c
+INNER JOIN populations as p
+ON c.code = p_country_code
+
+-------------------------------------------------------------------
+#8. 
+Chain an inner join with the economies table AS e, on code.
+Select year and unemployment_rate from the economies table.
+-------------------------------------------------------------------
+SELECT name, e.year, fertility_rate, unemployment_rate
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code
+INNER JOIN economies AS e
+ON e.code = c.code;
 
 
 -------------------------------------------------------------------
-#
+#9. Modify your query so that you are joining to economies on year as well as cod
+-------------------------------------------------------------------
+SELECT name, e.year, fertility_rate, unemployment_rate
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code
+INNER JOIN economies AS e
+ON c.code = e.code
+	AND e.year = p.year;
+
+
+-------------------------------------------------------------------
+#10. Perform an inner join with cities AS c1 on the left and countries as c2 on the right.
+Use code as the field to merge your tables on.
+-------------------------------------------------------------------
+SELECT 
+    c1.name AS city,
+    code,
+    c2.name AS country,
+    region,
+    city_proper_pop
+FROM cities AS c1
+INNER JOIN countries AS c2
+ON c1.country_code = c2.code
+ORDER BY code DESC;
+
+
+-------------------------------------------------------------------
+#11. Change the code to perform a LEFT JOIN instead of an INNER JOIN.
+After executing this query, have a look at how many records the query result contains
+-------------------------------------------------------------------
+SELECT 
+	c1.name AS city, 
+    code, 
+    c2.name AS country,
+    region, 
+    city_proper_pop
+FROM cities AS c1
+LEFT JOIN countries AS c2
+ON c1.country_code = c2.code
+ORDER BY code DESC;
+
+
+-------------------------------------------------------------------
+#12. Complete the LEFT JOIN with the countries table on the left and the economies table on the right on the code field.
+Filter the records from the year 2010.
+-------------------------------------------------------------------
+SELECT name, region, gdp_percapita
+FROM countries AS c
+LEFT JOIN economies AS e
+ON c.code = e.code
+WHERE year = 2010;
+-------------------------------------------------------------------
+#13. To calculate per capita GDP per region, begin by grouping by region.
+After your GROUP BY, choose region in your SELECT statement, followed by average GDP per capita using the AVG() function, with AS avg_gdp as your alias.
+-------------------------------------------------------------------
+SELECT region, AVG(gdp_percapita) AS avg_gdp
+FROM countries AS c
+LEFT JOIN economies AS e
+USING(code)
+WHERE year = 2010
+GROUP BY region;
+-------------------------------------------------------------------
+#14. Order the result set by the average GDP per capita from highest to lowest.
+Return only the first 10 records in your result.
+-------------------------------------------------------------------
+SELECT region, AVG(gdp_percapita) AS avg_gdp
+FROM countries AS c
+LEFT JOIN economies AS e
+USING(code)
+WHERE year = 2010
+GROUP BY region
+ORDER BY avg_gdp DESC
+LIMIT 10;
+-------------------------------------------------------------------
+#11.
 -------------------------------------------------------------------
 
-
-
 -------------------------------------------------------------------
-#
+#11.
 -------------------------------------------------------------------
-
-
-
--------------------------------------------------------------------
-#
--------------------------------------------------------------------
-
-
-
-
 
 
 
