@@ -1,0 +1,96 @@
+
+
+
+#1. Create a CASE statement that identifies whether a match in Germany included FC Bayern Munich, FC Schalke 04, or Other as the home team.
+-------------------------------------------------------------------
+SELECT 
+	CASE WHEN hometeam_id = 10189 THEN 'FC Schalke 04'
+        WHEN hometeam_id = 9823 THEN 'FC Bayern Munich'
+         ELSE 'Other' END AS home_team,
+	COUNT(id) AS total_matches
+FROM matches_germany
+GROUP BY home_team;
+
+
+------------------------------------------------------------------
+#2. Create a CASE statement to identify matches as home wins, home losses, or else ties.
+-------------------------------------------------------------------
+SELECT 
+	date,
+	-- Identify home wins, losses, or ties
+	CASE WHEN home_goal > away_goal THEN 'Home win!'
+        WHEN home_goal < away_goal THEN 'Home loss :(' 
+        ELSE 'Tie' END AS outcome
+FROM matches_spain;
+
+
+------------------------------------------------------------------
+#3. Complete the CASE statement to identify Barcelona's away team games as wins, losses, or ties.
+Left join the teams_spain table team_api_id column on the matches_spain table hometeam_id column. This retrieves the identity of the home team opponent.
+Filter the query to only include matches where Barcelona (awayteam_id = 8634) was the away team
+-------------------------------------------------------------------
+-- Select matches where Barcelona was the away team
+SELECT  
+	m.date,
+	t.team_long_name AS opponent,
+	CASE WHEN home_goal < away_goal THEN 'Barcelona win!'
+        WHEN home_goal > away_goal THEN 'Barcelona loss :(' 
+        ELSE 'Tie' END  outcome
+FROM matches_spain AS m
+LEFT JOIN teams_spain AS t 
+ON m.hometeam_id = t.team_api_id
+-- Filter for Barcelona
+WHERE m.awayteam_id = 8634;
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+#
+-------------------------------------------------------------------
