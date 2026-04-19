@@ -194,7 +194,7 @@ SELECT
 FROM customer; 
 
 /* Exercise 21:
-Add a single space to the right or end of the first_name column.
+Add a single space to the right or end of the first_name co lumn.
 Add the characters < to the right or end of last_name column.
 Finally, add the characters > to the right or end of the email column.+
 */
@@ -239,3 +239,32 @@ FROM
   	ON f.film_id = fc.film_id 
   INNER JOIN category AS c 
   	ON fc.category_id = c.category_id;
+
+
+-- Exercise 24: Select all columns for all records that begin with the word GOLD.
+
+SELECT *
+FROM film
+WHERE title LIKE 'GOLD%';
+
+-- Exercise 25: Now select all records that end with the word GOLD.
+SELECT *
+FROM film
+WHERE title LIKE '%GOLD';
+
+-- Exercise 26: Finally, select all records that contain the word 'GOLD'.
+SELECT *
+FROM film
+WHERE title LIKE '%GOLD%';
+
+-- Exercise 27:  Select the film description and convert it to a tsvector data type.
+SELECT to_tsvector(description)
+FROM film;
+
+/*
+Select the title and description columns from the film table.
+Perform a full-text search on the title column for the word elf.
+*/
+SELECT title, description
+FROM film
+WHERE to_tsvector(title) @@ to_tsquery('elf');
