@@ -338,3 +338,65 @@ FROM film as f
 	INNER JOIN inventory AS i ON f.film_id=i.film_id 
 WHERE
     inventory_held_by_customer(i.inventory_id) IS NOT NULL
+
+-- Exercise 36: Enable the pg_trgm extension
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+-- Exercise 37: Now confirm that both fuzzystrmatch and pg_trgm 
+-- are enabled by selecting all rows from the appropriate system table.
+SELECT *
+FROM pg_extension;
+
+/* Exercise 38:
+Select the film title and description.
+Calculate the similarity between the title and description.
+*/
+SELECT 
+  title, 
+  description, 
+  similarity(title, description)
+FROM 
+  film
+
+
+  /* Exercise 39:
+Select the film title and film description.
+Calculate the levenshtein distance for the film title with the string JET NEIGHBOR.
+*/
+SELECT  
+  title, 
+  description, 
+  levenshtein(title, 'JET NEIGHBOR') AS distance
+FROM 
+  film
+ORDER BY 3
+
+  /* Exercise 40:
+Select the title and description for all DVDs from the film table.
+Perform a full-text search by converting the description to a tsvector and match it to the phrase 
+'Astounding & Drama' using a tsquery in the WHERE clause.
+*/
+SELECT  
+  title, 
+  description 
+FROM 
+  film
+WHERE 
+  to_tsvector(description) @@ 
+  to_tsquery('Astounding & Drama');
+
+/* Exercise 41:
+Add a new column that calculates the similarity of the description with the phrase 'Astounding Drama'.
+Sort the results by the new similarity column in descending order.
+*/
+SELECT 
+  title, 
+  description, 
+  similarity(description, 'Astounding Drama')
+FROM 
+  film 
+WHERE 
+  to_tsvector(description) @@ 
+  to_tsquery('Astounding & Drama') 
+ORDER BY 
+	similarity(description, 'Astounding Drama') DESC;
