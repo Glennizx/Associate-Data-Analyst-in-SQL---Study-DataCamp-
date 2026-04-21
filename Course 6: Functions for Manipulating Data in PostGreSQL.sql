@@ -309,3 +309,32 @@ Select all columns from the pg_type table where the type name is equal to mpaa_r
 SELECT *
 FROM pg_type
 WHERE typname='mpaa_rating'
+
+-- Exercise 33: Select the title and inventory_id columns from the film and inventory tables in the database.
+-- Select the film title and inventory ids
+SELECT 
+	f.title, 
+    i.inventory_id
+FROM film AS f 
+	-- Join the film table to the inventory table
+	INNER JOIN inventory AS i ON f.film_id = i.film_id
+
+  --Exercise 34: inventory_id is currently held by a customer and alias the column as held_by_cust
+SELECT 
+	f.title, 
+    i.inventory_id,
+    inventory_held_by_customer(i.inventory_id) AS held_by_cust 
+FROM film as f 
+	INNER JOIN inventory AS i ON f.film_id=i.film_id 
+
+-- Exercise 35: Now filter your query to only return records where
+-- the inventory_held_by_customer() function returns a non-null value.
+
+SELECT 
+	f.title, 
+    i.inventory_id,
+    inventory_held_by_customer(i.inventory_id) as held_by_cust
+FROM film as f 
+	INNER JOIN inventory AS i ON f.film_id=i.film_id 
+WHERE
+    inventory_held_by_customer(i.inventory_id) IS NOT NULL
